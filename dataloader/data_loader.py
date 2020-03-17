@@ -38,8 +38,11 @@ class CreateDataset(data.Dataset):
 
     def load_mask(self, img, index):
         """Load different mask types for training and testing"""
-        mask_type_index = random.randint(0, len(self.opt.mask_type) - 1)
-        mask_type = self.opt.mask_type[mask_type_index]
+        if isinstance(self.opt.mask_type, list):
+            mask_type_index = random.randint(0, len(self.opt.mask_type) - 1)
+            mask_type = self.opt.mask_type[mask_type_index]
+        else:
+            mask_type = self.opt.mask_type
 
         # center mask
         if mask_type == 0:
